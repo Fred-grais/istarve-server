@@ -53,4 +53,7 @@ gem 'devise', '~> 3.3.0'
 gem 'devise_token_auth'
 gem 'omniauth'
 
+gem 'nokogiri'
+
+
 ruby '2.0.0'
