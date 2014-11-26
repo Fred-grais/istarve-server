@@ -11,10 +11,59 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141126114029) do
+ActiveRecord::Schema.define(version: 20141126142158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "restaurant_comments", force: true do |t|
+    t.string   "title",         null: false
+    t.text     "body",          null: false
+    t.integer  "restaurant_id", null: false
+    t.integer  "user_id",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "restaurant_comments", ["restaurant_id", "user_id"], name: "index_restaurant_comments_on_restaurant_id_and_user_id", unique: true, using: :btree
+
+  create_table "restaurant_ratings", force: true do |t|
+    t.integer  "rating",        null: false
+    t.integer  "restaurant_id", null: false
+    t.integer  "user_id",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "restaurant_ratings", ["restaurant_id", "user_id"], name: "index_restaurant_ratings_on_restaurant_id_and_user_id", unique: true, using: :btree
+
+  create_table "restaurant_types", force: true do |t|
+    t.string   "title",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "restaurants", force: true do |t|
+    t.integer  "user_id",    null: false
+    t.string   "name",       null: false
+    t.string   "address",    null: false
+    t.float    "lat"
+    t.float    "lon"
+    t.integer  "type_id",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "restaurants", ["user_id", "name", "address"], name: "index_restaurants_on_user_id_and_name_and_address", unique: true, using: :btree
+
+  create_table "user_favorite_lists", force: true do |t|
+    t.integer  "user_id",       null: false
+    t.integer  "restaurant_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_favorite_lists", ["user_id", "restaurant_id"], name: "index_user_favorite_lists_on_user_id_and_restaurant_id", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "provider",                            null: false
