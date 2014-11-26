@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="2364500601">
+    <data-source source="LOCAL" name="Rails if26_project: development" uuid="f0914e69-e6ba-4e9d-8e49-076a40c8987d">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql:if26_development</jdbc-url>
+      <user-name>postgres</user-name>
+      <user-password>dfccdfdfdfdedfdfdfd8df9bdf98df99</user-password>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails if26_project: test" uuid="ccd40371-00a4-454c-a646-1079245949b0">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql:if26_test</jdbc-url>
+      <user-name>postgres</user-name>
+      <user-password>dfccdfdfdfdedfdfdfd8df9bdf98df99</user-password>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails if26_project: production" uuid="eac8f27f-abb5-4aa2-92ef-533817d07678">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql:if26_production</jdbc-url>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+
