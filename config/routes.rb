@@ -3,8 +3,12 @@ Rails.application.routes.draw do
   resources :user_favorite_lists
 
   resources :restaurants do
-    resources :comments, except: [:new, :edit]
-    resources :ratings, except: [:new, :edit]
+
+    scope module: "restaurants" do
+      resources :ratings, except: [:new, :edit]
+      resources :comments, except: [:new, :edit]
+    end
+
   end
 
   mount_devise_token_auth_for 'User', at: '/auth'

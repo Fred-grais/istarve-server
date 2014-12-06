@@ -5,4 +5,8 @@ class RestaurantComment < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :restaurant
+
+  def user_identity
+    user.pseudo
+  end
 end

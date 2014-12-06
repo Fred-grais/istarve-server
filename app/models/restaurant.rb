@@ -5,4 +5,7 @@ class Restaurant < ActiveRecord::Base
 
   belongs_to :type, class_name: 'RestaurantType'
   belongs_to :user
+
+  has_many :ratings, class_name: 'RestaurantRating'
+  has_many :comments, class_name: 'RestaurantComment'
 end

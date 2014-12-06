@@ -1,12 +1,15 @@
-class CommentsController < ApplicationController
+class Restaurants::CommentsController < ApplicationController
   before_action :set_restaurant_comment, only: [:show, :edit, :update, :destroy]
-  before_action :set_restaurant, only: [:index, :create]
+  before_action :set_restaurant, only: [:index, :create, :update]
 
   before_action :authenticate_user!
   # GET /restaurant_comments
   # GET /restaurant_comments.json
+
+  respond_to :json
+
   def index
-    @restaurant_comments = RestaurantComment.all
+    @restaurant_comments = @restaurant.comments
   end
 
   # GET /restaurant_comments/1
@@ -26,12 +29,12 @@ class CommentsController < ApplicationController
   # POST /restaurant_comments
   # POST /restaurant_comments.json
   def create
-    @restaurant_comment = RestaurantComment.new(restaurant_comment_params)
+    @restaurant_comment = @restaurant.comments.new(restaurant_comment_params)
 
     respond_to do |format|
       if @restaurant_comment.save
         format.html { redirect_to @restaurant_comment, notice: 'Restaurant comment was successfully created.' }
-        format.json { render :show, status: :created, location: @restaurant_comment }
+        format.json { render json: {status: :success}, status: :created }
       else
         format.html { render :new }
         format.json { render json: @restaurant_comment.errors, status: :unprocessable_entity }
@@ -45,7 +48,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @restaurant_comment.update(restaurant_comment_params)
         format.html { redirect_to @restaurant_comment, notice: 'Restaurant comment was successfully updated.' }
-        format.json { render :show, status: :ok, location: @restaurant_comment }
+        format.json { render json: {status: :success}, status: :ok}
       else
         format.html { render :edit }
         format.json { render json: @restaurant_comment.errors, status: :unprocessable_entity }
@@ -76,6 +79,6 @@ class CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def restaurant_comment_params
-      params.require(:restaurant_comment).permit(:title, :body)
+      params.require(:restaurant_comment).permit(:title, :body).merge!(user_id: current_user.id)
     end
 end

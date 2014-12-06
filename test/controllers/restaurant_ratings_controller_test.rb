@@ -8,7 +8,7 @@ class RestaurantRatingsControllerTest < ActionController::TestCase
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:restaurant_ratings)
+    assert_not_nil assigns(:ratings)
   end
 
   test "should get new" do
