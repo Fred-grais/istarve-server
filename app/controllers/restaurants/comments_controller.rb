@@ -29,12 +29,18 @@ class Restaurants::CommentsController < ApplicationController
   # POST /restaurant_comments
   # POST /restaurant_comments.json
   def create
-    @restaurant_comment = @restaurant.comments.new(restaurant_comment_params)
+    comment_params =  {title: params[:title], body: params[:body], user_id: current_user.id}
 
+    if @restaurant_comment = RestaurantComment.find_by(restaurant_id: @restaurant.id, user_id: current_user.id)
+      success = @restaurant_comment.update(comment_params.except(:user_id))
+    else
+      @restaurant_comment = @restaurant.comments.new(comment_params)
+      success = @restaurant_comment.save
+    end
     respond_to do |format|
-      if @restaurant_comment.save
+      if success
         format.html { redirect_to @restaurant_comment, notice: 'Restaurant comment was successfully created.' }
-        format.json { render json: {status: :success}, status: :created }
+        format.json { render json: {status: :success}, status: :ok }
       else
         format.html { render :new }
         format.json { render json: @restaurant_comment.errors, status: :unprocessable_entity }

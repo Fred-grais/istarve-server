@@ -1,9 +1,8 @@
 
   class Restaurants::RatingsController < ApplicationController
     before_action :set_restaurant_rating, only: [:show, :edit, :update, :destroy]
-    before_action :set_restaurant, only: [:create, :update]
+    before_action :set_restaurant, only: [:index,:create, :update]
     before_action :authenticate_user!
-    before_action :set_restaurant, only: [:index, :create]
     # GET /restaurant_ratings
     # GET /restaurant_ratings.json
 
@@ -29,12 +28,19 @@
     # POST /restaurant_ratings
     # POST /restaurant_ratings.json
     def create
-      @restaurant_rating = @restaurant.ratings.new(restaurant_rating_params)
+      rating_params = {rating: params[:rating], user_id: current_user.id}
+      if @restaurant_rating = RestaurantRating.find_by(restaurant_id: @restaurant.id, user_id: current_user.id)
+        success = @restaurant_rating.update(rating_params.except(:user_id))
+      else
+        @restaurant_rating = @restaurant.ratings.new(rating_params)
+        success = @restaurant_rating.save
+      end
+
 
       respond_to do |format|
-        if @restaurant_rating.save
+        if success
           format.html { redirect_to @restaurant_rating, notice: 'Restaurant rating was successfully created.' }
-          format.json { render json: {status: :success}, status: :created }
+          format.json { render json: {status: :success}, status: :ok }
         else
           format.html { render :new }
           format.json { render json: { errors: @restaurant_rating.errors }, status: :unprocessable_entity }
