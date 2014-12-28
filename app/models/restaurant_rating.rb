@@ -7,6 +7,6 @@ class RestaurantRating < ActiveRecord::Base
   belongs_to :restaurant
 
   def user_identity
-    user.pseudo
+    user.email
   end
 end
