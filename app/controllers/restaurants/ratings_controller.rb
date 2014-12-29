@@ -31,16 +31,18 @@
       rating_params = {rating: params[:rating], user_id: current_user.id}
       if @restaurant_rating = RestaurantRating.find_by(restaurant_id: @restaurant.id, user_id: current_user.id)
         success = @restaurant_rating.update(rating_params.except(:user_id))
+        event = :rating_updated
       else
         @restaurant_rating = @restaurant.ratings.new(rating_params)
         success = @restaurant_rating.save
+        event = :rating_created
       end
 
 
       respond_to do |format|
         if success
           format.html { redirect_to @restaurant_rating, notice: 'Restaurant rating was successfully created.' }
-          format.json { render json: {status: :success}, status: :ok }
+          format.json { render json: {status: :success, event: event}, status: :ok }
         else
           format.html { render :new }
           format.json { render json: { errors: @restaurant_rating.errors }, status: :unprocessable_entity }

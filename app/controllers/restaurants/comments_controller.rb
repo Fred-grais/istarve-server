@@ -33,14 +33,16 @@ class Restaurants::CommentsController < ApplicationController
 
     if @restaurant_comment = RestaurantComment.find_by(restaurant_id: @restaurant.id, user_id: current_user.id)
       success = @restaurant_comment.update(comment_params.except(:user_id))
+      event = :comment_updated
     else
       @restaurant_comment = @restaurant.comments.new(comment_params)
       success = @restaurant_comment.save
+      event = :comment_created
     end
     respond_to do |format|
       if success
         format.html { redirect_to @restaurant_comment, notice: 'Restaurant comment was successfully created.' }
-        format.json { render json: {status: :success}, status: :ok }
+        format.json { render json: {status: :success, event: event}, status: :ok }
       else
         format.html { render :new }
         format.json { render json: @restaurant_comment.errors, status: :unprocessable_entity }
