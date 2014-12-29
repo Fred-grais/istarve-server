@@ -9,7 +9,7 @@ class Restaurants::CommentsController < ApplicationController
   respond_to :json
 
   def index
-    @restaurant_comments = @restaurant.comments
+    @restaurant_comments = @restaurant.comments.order('updated_at DESC')
   end
 
   # GET /restaurant_comments/1
