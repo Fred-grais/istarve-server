@@ -72,6 +72,10 @@ class Restaurants::CommentsController < ApplicationController
     end
   end
 
+  def user_comment
+    @restaurant_comment = RestaurantComment.find_by(restaurant_id: params[:restaurant_id], user_id: current_user.id)
+  end
+
   private
 
     def set_restaurant

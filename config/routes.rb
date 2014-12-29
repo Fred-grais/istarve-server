@@ -5,8 +5,16 @@ Rails.application.routes.draw do
   resources :restaurants do
 
     scope module: "restaurants" do
-      resources :ratings, except: [:new, :edit]
-      resources :comments, except: [:new, :edit]
+      resources :ratings, except: [:new, :edit] do
+        collection do
+          get :user_rating
+        end
+      end
+      resources :comments, except: [:new, :edit] do
+        collection do
+          get :user_comment
+        end
+      end
     end
 
   end

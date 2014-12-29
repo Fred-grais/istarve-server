@@ -72,6 +72,10 @@
       end
     end
 
+    def user_rating
+      @restaurant_rating = RestaurantRating.find_by(restaurant_id: params[:restaurant_id], user_id: current_user.id)
+    end
+
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_restaurant_rating
