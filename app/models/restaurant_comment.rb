@@ -9,4 +9,8 @@ class RestaurantComment < ActiveRecord::Base
   def user_identity
     user.email
   end
+
+  def displayed_date
+    self.updated_at.localtime.strftime("%F %T")
+  end
 end
