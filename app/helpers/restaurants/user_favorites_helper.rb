@@ -1,0 +1,2 @@
+module Restaurants::UserFavoritesHelper
+end

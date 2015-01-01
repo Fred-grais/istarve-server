@@ -55,5 +55,6 @@ gem 'omniauth'
 
 gem 'nokogiri'
 
+gem 'paperclip', '~> 4.2'
 
 ruby '2.0.0'

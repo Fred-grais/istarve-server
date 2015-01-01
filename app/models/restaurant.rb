@@ -9,6 +9,9 @@ class Restaurant < ActiveRecord::Base
   has_many :ratings, class_name: 'RestaurantRating'
   has_many :comments, class_name: 'RestaurantComment'
 
+  has_many :pictures, class_name: 'RestaurantPicture'
+
+
   def ratings_average
     self.ratings.average(:rating).to_i
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141202161714) do
+ActiveRecord::Schema.define(version: 20150101214450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,16 @@ ActiveRecord::Schema.define(version: 20141202161714) do
   end
 
   add_index "restaurant_comments", ["restaurant_id", "user_id"], name: "index_restaurant_comments_on_restaurant_id_and_user_id", unique: true, using: :btree
+
+  create_table "restaurant_pictures", force: true do |t|
+    t.integer  "restaurant_id",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
 
   create_table "restaurant_ratings", force: true do |t|
     t.integer  "rating",        null: false
