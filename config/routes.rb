@@ -17,6 +17,7 @@ Rails.application.routes.draw do
           get :user_comment
         end
       end
+      resources :user_favorites, only: :index
       post 'user_favorites/manage', to: 'user_favorites#manage'
       resources :restaurant_pictures, only: [:index, :create, :destroy]
     end

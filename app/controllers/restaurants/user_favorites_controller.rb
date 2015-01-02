@@ -1,9 +1,20 @@
 module Restaurants
   class UserFavoritesController < ApplicationController
       before_action :authenticate_user!
-      before_action :set_restaurant, only: [:manage]
+      before_action :set_restaurant, only: [:manage, :index]
 
       respond_to :json
+
+      def index
+        if UserFavoriteList.find_by(user_id: current_user.id, restaurant_id: @restaurant.id)
+          state = true
+        else
+          state = false
+        end
+        respond_to do |format|
+          format.json { render json: {status: :success, event: :get_favorite_status, state: state}, status: :ok }
+        end
+      end
 
       def manage
         if @favorite_list_entry = UserFavoriteList.find_by(user_id: current_user.id, restaurant_id: @restaurant.id)
