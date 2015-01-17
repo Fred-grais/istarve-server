@@ -19,7 +19,7 @@ Rails.application.routes.draw do
       end
       resources :user_favorites, only: :index
       post 'user_favorites/manage', to: 'user_favorites#manage'
-      resources :restaurant_pictures, only: [:index, :create, :destroy]
+      resources :pictures, only: [:index, :create, :destroy]
     end
 
   end
